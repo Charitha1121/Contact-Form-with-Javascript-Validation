@@ -28,6 +28,3 @@ Build a contact form with client-side validation for **Name**, **Email**, and **
 - **Success message** when all inputs are valid  
 - Works **without any backend** (demo only)  
 
----
-
-## 📂 Project Structure
