@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter your name">
+      <div class="error" id="nameError"></div>
+
+      <label for="email">Email</label>
+      <input type="text" id="email" placeholder="Enter your email">
+      <div class="error" id="emailError"></div>
+
+      <label for="message">Message</label>
+      <textarea id="message" placeholder="Enter your message"></textarea>
+      <div class="error" id="messageError"></div>
+
+      <button type="submit">Submit</button>
+    </form>
+    <div class="success" id="successMsg"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const successMsg = document.getElementById('successMsg');
+
+    // Error divs
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // stop form from submitting
+      let valid = true;
+
+      // Reset error messages
+      nameError.textContent = "";
+      emailError.textContent = "";
+      messageError.textContent = "";
+      successMsg.textContent = "";
+
+      // Validate Name
+      if (nameInput.value.trim() === "") {
+        nameError.textContent = "Name cannot be empty.";
+        valid = false;
+      }
+
+      // Validate Email with regex
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailInput.value.trim() === "") {
+        emailError.textContent = "Email cannot be empty.";
+        valid = false;
+      } else if (!emailPattern.test(emailInput.value.trim())) {
+        emailError.textContent = "Enter a valid email address.";
+        valid = false;
+      }
+
+      // Validate Message
+      if (messageInput.value.trim() === "") {
+        messageError.textContent = "Message cannot be empty.";
+        valid = false;
+      }
+
+      // If all valid
+      if (valid) {
+        successMsg.textContent = "Form submitted successfully!";
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>
